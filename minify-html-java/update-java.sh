@@ -67,7 +67,7 @@ while IFS= read -r field; do
     camel_field=$(snake_to_camel "$field")
     getter_name="is$(capitalize "$camel_field")"
 
-    mapping="    $field: env.call_method(*obj, \"$getter_name\", \"()Z\", &[]).unwrap().z().unwrap(),"
+    mapping="        $field: get_boolean_field!(\"$getter_name\"),"
 
     rust_mappings="$rust_mappings$mapping\n"
 done <<< "$rust_fields"
